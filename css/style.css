@@ -486,3 +486,14 @@ h1,h2,h3{color:var(--heading-color)}
 body{background-color:var(--page-background);color:var(--text-color)}footer{color:var(--nav-text-color)}header a,header button{color:var(--nav-text-color)}.btn.o{border-color:var(--primary-color)}
 
 .testimonial-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;margin:0 auto 14px;border:3px solid var(--accent-color)}
+
+
+/* Wave Photography — refined full-screen navigation */
+#ov{padding:clamp(76px,9vh,112px) clamp(24px,9vw,150px) 42px;align-items:flex-start;justify-content:center;gap:clamp(18px,3vh,30px);background:linear-gradient(135deg,#f8fffd 0%,#e5f7f2 58%,#d8edf1 100%)}
+#ov:before{content:'WAVE PHOTOGRAPHY';display:block;color:#168f88;font:700 10px/1.2 'Inter',sans-serif;letter-spacing:.24em}
+#ov nav{width:min(100%,1040px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;gap:8px 54px}
+#ov nav a{display:flex;align-items:center;min-height:58px;padding:9px 0;border-bottom:1px solid rgba(28,86,100,.16);font:650 clamp(1.45rem,2.7vw,2.75rem)/1.12 'Inter',sans-serif;letter-spacing:-.045em;color:#173f4b;transition:color .2s,transform .2s}
+#ov nav a:hover,#ov nav a.on{color:#079e8d;font-style:normal;transform:translateX(6px)}
+#ov p{margin-top:4px;color:#48646c;font-size:13px;letter-spacing:.04em}
+#cl{top:28px;right:clamp(20px,5vw,72px);padding:10px 22px;background:#fff;border-color:rgba(28,86,100,.2);box-shadow:0 8px 24px rgba(15,60,72,.08);font-size:13px;font-weight:650}
+@media(max-width:640px){#ov{padding:84px 26px 32px;justify-content:center}#ov nav{grid-template-columns:1fr;gap:2px}#ov nav a{min-height:48px;font-size:clamp(1.45rem,7vw,2rem)}#ov p{font-size:12px;line-height:1.6}}
