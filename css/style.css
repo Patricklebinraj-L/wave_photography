@@ -707,3 +707,15 @@ input,select,textarea{background:var(--form-background-paint,var(--form-backgrou
 .custom-css-field{grid-column:1/-1}
 .custom-css-field textarea{width:100%;min-height:150px;padding:14px;border:1px solid #dce5e8;border-radius:12px;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;background:#0d2530;color:#e8f4f5}
 @media(max-width:640px){.service-actions{align-items:stretch}.service-actions .load-more,.service-actions .explore-service-btn{width:100%;justify-content:center}.logo-manager{grid-template-columns:1fr}}
+
+/* Force the admin-selected logo tile colour onto the actual logo wrappers. */
+header .brand-lockup, .brand-lockup, footer .logo, footer .brand-lockup{
+ background-color:var(--logo-background,#fff)!important;
+ background-image:none!important;
+ padding:var(--logo-padding,10px)!important;
+ border-radius:var(--logo-radius,16px)!important;
+ box-sizing:border-box!important;
+}
+.brand-lockup img, footer .logo img, footer .brand-lockup img{
+ width:var(--logo-width,220px)!important;max-width:100%!important;height:auto!important;object-fit:contain!important;
+}

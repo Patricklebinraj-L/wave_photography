@@ -44,3 +44,10 @@
 .custom-css-field textarea{width:100%;min-height:150px;padding:14px;border:1px solid #dce5e8;border-radius:12px;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;background:#0d2530;color:#e8f4f5}
 .logo-manager label small,.custom-css-field small{display:block;margin-top:7px;color:#71838c;font-size:12px;line-height:1.5}
 @media(max-width:680px){.logo-manager{grid-template-columns:1fr}}
+
+.theme-group-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid #e5eeee}
+.theme-group-actions .btn{min-height:40px;padding:9px 16px;border-radius:11px;font-weight:700}
+.theme-group-actions .btn.secondary{background:#edf4f4;color:#214653;border:1px solid #d6e4e5}
+.theme-group-actions .btn:disabled{opacity:.65;cursor:wait}
+.theme-save-all{margin-top:22px;min-height:48px;padding:12px 22px}
+@media(max-width:560px){.theme-group-actions{justify-content:stretch}.theme-group-actions .btn{flex:1}}

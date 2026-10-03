@@ -120,3 +120,12 @@ The homepage testimonials area now uses a responsive editorial-style review card
 ## Logo and button appearance controls
 
 The Admin → Theme page now supports uploading the public header/footer logo, changing its background/padding/corner radius/width, and applying safe CSS declarations to a selected button group. These settings are stored in the existing `theme_settings` key/value table; no additional database migration is required. The public website loads the saved logo and button rules through `data.php`.
+
+
+## Latest fix: logo background and per-group theme saving
+
+- The logo tile background is now applied directly to the real header/footer logo wrappers, with a DOM observer so dynamically-rendered logo elements receive the selected colour too.
+- Admin → Theme now has **Save changes** and **Reset** controls inside every theme group. Save changes submits only that group; Reset restores that group's values to the settings loaded when the page opened.
+- **Save all theme changes** remains available for a full theme update.
+- Uploading a replacement logo is included when saving the Header & navigation group.
+- No new database migration is required; the existing `theme_settings` and `site_settings` tables are used.
