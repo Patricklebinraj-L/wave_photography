@@ -115,3 +115,7 @@ Admin > Theme now provides solid/gradient mode, two editable gradient colour sto
 
 ## Testimonials UI refresh
 The homepage testimonials area now uses a responsive editorial-style review card, client avatar/initial fallback, accessible star rating, previous/next controls and pagination dots. The section copy and empty state are written for a live photography portfolio. Seed/sample testimonials remain available in Admin for reference but are excluded from the public testimonials feed; only active, non-sample customer reviews appear publicly. The existing testimonial administration workflow and database records are preserved.
+
+
+## Admin contextual save controls and personal defaults
+Editable admin forms show a contextual action bar with Save changes, Reset changes, Make default, and Use saved default. Reset changes restores the form state from when the current editor was opened. Make default stores private per-admin, per-form preferred values without publishing them. Use saved default loads those values into the form; click Save changes to publish them. Migration `005_admin_form_defaults.php` runs automatically through the existing migration runner on the next project request.

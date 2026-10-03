@@ -63,6 +63,19 @@ function slugify_admin($s){$s=strtolower(trim($s));$s=preg_replace('/[^a-z0-9]+/
 try{
 if($_SERVER['REQUEST_METHOD']==='POST' && !isset($_POST['login'])){
  admin_csrf_check();$action=postv('action');
+ if($action==='save_form_default'){
+  $formAction=postv('default_action');$returnPage=postv('return_page','dashboard');
+  $allowedDefaultActions=['save_section','save_service','bulk_upload','save_photo','save_content','save_theme','save_navigation','save_settings','save_testimonial'];
+  $allowedReturnPages=['sections','services','gallery','content','theme','navigation','settings','testimonials','account'];
+  if(!in_array($formAction,$allowedDefaultActions,true)||!in_array($returnPage,$allowedReturnPages,true))throw new RuntimeException('Invalid default-settings request.');
+  $payload=(string)($_POST['default_payload']??'{}');
+  if(strlen($payload)>100000)throw new RuntimeException('Default settings are too large.');
+  $decoded=json_decode($payload,true);if(!is_array($decoded))throw new RuntimeException('Could not read the default settings.');
+  unset($decoded['csrf'],$decoded['action'],$decoded['id'],$decoded['default_payload']);
+  $payload=json_encode($decoded,JSON_UNESCAPED_UNICODE|JSON_INVALID_UTF8_SUBSTITUTE);
+  $pdo->prepare("INSERT INTO admin_form_defaults(admin_id,form_action,payload_json,updated_at) VALUES(?,?,?,NOW()) ON DUPLICATE KEY UPDATE payload_json=VALUES(payload_json),updated_at=NOW()")->execute([$adminId,$formAction,$payload]);
+  admin_log('form_default_saved','Saved personal defaults for '.$formAction);redirect_page($returnPage);
+ }
  if($action==='save_section'){
   $id=(int)($_POST['id']??0);$name=postv('name');$cat=postv('category',$name);$slug=slugify_admin(postv('slug',$name));$desc=postv('description');$image=upload_image('cover_image',postv('existing_image'));
   if(!$name)throw new RuntimeException('Section name is required.');
@@ -136,7 +149,11 @@ if($k==='font_family'&&!in_array($v,$fonts,true))continue;if(in_array($k,['hero_
 }
 }catch(Throwable $e){$error=$e->getMessage();error_log('[Wave Admin] '.$e->getMessage());}
 function count_table($table){$allowed=['services','portfolio_photos','testimonials','bookings','website_sections','website_content','media_library'];if(!in_array($table,$allowed,true))return 0;return (int)db()->query("SELECT COUNT(*) FROM `$table`".(in_array($table,['services','portfolio_photos','testimonials','website_sections'])?' WHERE is_active=1':''))->fetchColumn();}
-function admin_form_start($action){echo '<form method="post" enctype="multipart/form-data" class="admin-form"><input type="hidden" name="csrf" value="'.admin_h(admin_csrf()).'"><input type="hidden" name="action" value="'.admin_h($action).'">';}
+function admin_form_start($action){
+ $saved='{}';
+ try{$q=db()->prepare("SELECT payload_json FROM admin_form_defaults WHERE admin_id=? AND form_action=? LIMIT 1");$q->execute([(int)($_SESSION['wave_admin_id']??0),$action]);$saved=$q->fetchColumn()?:'{}';}catch(Throwable $e){}
+ echo '<form method="post" enctype="multipart/form-data" class="admin-form" data-admin-action="'.admin_h($action).'" data-saved-default="'.admin_h($saved).'"><input type="hidden" name="csrf" value="'.admin_h(admin_csrf()).'"><input type="hidden" name="action" value="'.admin_h($action).'">';
+}
 function field($label,$name,$value='',$type='text',$extra=''){echo '<label>'.admin_h($label).'<input type="'.admin_h($type).'" name="'.admin_h($name).'" value="'.admin_h($value).'" '.$extra.'></label>';}
 function textarea_field($label,$name,$value=''){echo '<label>'.admin_h($label).'<textarea name="'.admin_h($name).'" rows="4">'.admin_h($value).'</textarea></label>';}
 function rows($sql){return db()->query($sql)->fetchAll();}
@@ -192,7 +209,7 @@ foreach($themeGroups as $group=>$keys):?><div class="theme-group"><h4><?=admin_h
         fields.forEach(function(name){var input=form.querySelector('[name="'+name+'"]');if(input)input.value=data[name] == null ? '' : data[name];});
         if(after)after(form,data);
         var panel=form.closest('.panel')||form;
-        panel.scrollIntoView({behavior:'smooth',block:'start'});
+        if(window.waveMarkFormClean)window.waveMarkFormClean(form);panel.scrollIntoView({behavior:'smooth',block:'start'});
       });
     });
   }
@@ -222,5 +239,27 @@ foreach($themeGroups as $group=>$keys):?><div class="theme-group"><h4><?=admin_h
   }
   var menuButton=document.querySelector('.mobile-menu');
   if(menuButton)menuButton.addEventListener('click',function(){document.getElementById('sidebar')?.classList.toggle('show');});
+
+  // Contextual save controls for every editable admin form.
+  function formState(form){var state=[];Array.prototype.forEach.call(form.elements,function(el){if(!el.name||['csrf','action','default_payload','default_action','return_page'].indexOf(el.name)>=0||el.type==='file'||el.type==='submit'||el.type==='button')return;if(el.type==='checkbox'||el.type==='radio')state.push([el.name,el.type,el.value,!!el.checked]);else state.push([el.name,el.type||'text',el.value]);});return JSON.stringify(state);}
+  function applyState(form,state){if(!Array.isArray(state))return;state.forEach(function(item){var name=item[0],type=item[1],value=item[2],checked=item[3];if(['id','csrf','action'].indexOf(name)>=0)return;var controls=form.querySelectorAll('[name="'+CSS.escape(name)+'"]');Array.prototype.forEach.call(controls,function(el){if(type==='checkbox'||type==='radio')el.checked=!!checked;else if(el.type!=='file')el.value=value==null?'':value;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));});});}
+  function setClean(form){form.dataset.cleanState=formState(form);form.classList.remove('has-unsaved-changes');var bar=form.querySelector('.admin-inline-actions');if(bar)bar.classList.remove('is-dirty');}
+  window.waveMarkFormClean=setClean;
+  document.querySelectorAll('form.admin-form').forEach(function(form){
+    var action=form.dataset.adminAction||'';if(['save_section','save_service','bulk_upload','save_photo','save_content','save_theme','save_navigation','save_settings','save_testimonial'].indexOf(action)<0)return;
+    var bar=document.createElement('div');bar.className='admin-inline-actions';bar.innerHTML='<span class="admin-save-status" aria-live="polite">All changes saved</span><div class="admin-inline-buttons"><button type="button" class="btn subtle admin-reset">Reset changes</button><button type="button" class="btn subtle admin-apply-default">Use saved default</button><button type="button" class="btn subtle admin-save-default">Make default</button><button type="submit" class="btn primary admin-save-now">Save changes</button></div>';form.appendChild(bar);
+    var saved={};try{saved=JSON.parse(form.dataset.savedDefault||'{}')||{};}catch(e){}var hasDefault=Object.keys(saved).length>0;var applyButton=bar.querySelector('.admin-apply-default');applyButton.disabled=!hasDefault;setClean(form);
+    function updateDirty(){var dirty=formState(form)!==form.dataset.cleanState;form.classList.toggle('has-unsaved-changes',dirty);bar.classList.toggle('is-dirty',dirty);bar.querySelector('.admin-save-status').textContent=dirty?'You have unsaved changes':'All changes saved';}
+    form.addEventListener('input',updateDirty);form.addEventListener('change',updateDirty);
+    bar.querySelector('.admin-reset').addEventListener('click',function(){try{applyState(form,JSON.parse(form.dataset.cleanState));}catch(e){}form.querySelectorAll('input[type=file]').forEach(function(el){el.value='';});updateDirty();});
+    applyButton.addEventListener('click',function(){if(!hasDefault)return;Object.keys(saved).forEach(function(name){var vals=Array.isArray(saved[name])?saved[name]:[saved[name]];var controls=form.querySelectorAll('[name="'+CSS.escape(name)+'"]');if(!controls.length)return;if(controls[0].type==='checkbox'||controls[0].type==='radio'){Array.prototype.forEach.call(controls,function(el,i){el.checked=String(vals[i]??'0')==='1';el.dispatchEvent(new Event('change',{bubbles:true}));});}else{controls[0].value=vals[0]??'';controls[0].dispatchEvent(new Event('input',{bubbles:true}));controls[0].dispatchEvent(new Event('change',{bubbles:true}));}});updateDirty();});
+    bar.querySelector('.admin-save-default').addEventListener('click',function(){
+      var payload={};Array.prototype.forEach.call(form.elements,function(el){if(!el.name||['csrf','action','id','default_payload','default_action','return_page'].indexOf(el.name)>=0||el.type==='file'||el.type==='submit'||el.type==='button')return;if(el.type==='checkbox'||el.type==='radio'){if(!payload[el.name])payload[el.name]=[];payload[el.name].push(el.checked?'1':'0');}else{if(!payload[el.name])payload[el.name]=[];payload[el.name].push(el.value);}});
+      var currentPage=new URLSearchParams(window.location.search).get('page')||'dashboard';var post=document.createElement('form');post.method='post';post.action=window.location.pathname+'?page='+encodeURIComponent(currentPage);
+      [['csrf',form.querySelector('[name="csrf"]')?.value||''],['action','save_form_default'],['default_action',action],['return_page',currentPage],['default_payload',JSON.stringify(payload)]].forEach(function(pair){var input=document.createElement('input');input.type='hidden';input.name=pair[0];input.value=pair[1];post.appendChild(input);});document.body.appendChild(post);post.submit();
+    });
+    form.addEventListener('submit',function(){bar.querySelectorAll('button').forEach(function(btn){btn.disabled=true;});bar.querySelector('.admin-save-status').textContent='Saving changes…';});
+  });
+
 })();
 </script></body></html>
