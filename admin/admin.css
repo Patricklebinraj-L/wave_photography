@@ -65,3 +65,5 @@
 .theme-sticky-actions .theme-save-default{background:#edf4f4;color:#214653;border:1px solid #d6e4e5}
 .theme-default-state{margin:12px 0 20px;padding:10px 13px;border-radius:10px;background:#f0f7f6;color:#42616a;font-size:13px}
 @media(max-width:680px){.theme-sticky-actions{align-items:stretch}.theme-sticky-buttons{width:100%;display:grid;grid-template-columns:1fr}.theme-sticky-buttons .btn{width:100%}.theme-group-actions{justify-content:stretch}.theme-group-actions .btn{flex:1}}
+
+.logo-slot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.logo-slot-grid label{display:block;padding:12px;border:1px solid var(--line,#dce9e7);border-radius:12px;background:#f8fbfb}.logo-slot-grid small{display:block;margin-top:5px;color:#667}.theme-group .form-grid label{min-width:0}@media(max-width:650px){.logo-slot-grid{grid-template-columns:1fr}}

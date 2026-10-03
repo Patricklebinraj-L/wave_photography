@@ -138,3 +138,10 @@ The Admin → Theme page now supports uploading the public header/footer logo, c
 - Saving as default stores a snapshot of all current theme settings and the active logo in the existing `site_settings` table under an internal key.
 - **Restore saved default theme** restores that snapshot, including the logo. If no custom snapshot exists, it falls back to the built-in system defaults.
 - The internal snapshot is hidden from the normal Global website settings editor. No database migration is needed.
+
+
+## Header, hero heading and logo controls (latest update)
+- The hero heading now reads its colour from the saved `Hero heading color` theme setting, including both normal text colour and WebKit text fill. The legacy hard-coded white text rule no longer overrides the admin choice. A legacy default value is normalized to white once to preserve contrast on the dark hero background.
+- Public navigation items are displayed as horizontal desktop shortcuts between the logo and booking/menu actions. The `Admin` link is excluded from this shortcut row; it remains available inside the full Menu overlay. On narrow screens, the shortcut row is hidden and the responsive Menu control remains available.
+- Header shortcut text, hover text/background, active text/background, and Menu text/background/border are configurable under Theme → Header & navigation.
+- Theme → Website logo now supports a global logo plus optional header, footer, preloader, and admin-portal logo overrides. Empty overrides inherit the global logo. All images accept JPG, PNG, or WebP. Saving a custom default also snapshots all logo variants.
