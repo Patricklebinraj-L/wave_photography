@@ -129,3 +129,12 @@ The Admin → Theme page now supports uploading the public header/footer logo, c
 - **Save all theme changes** remains available for a full theme update.
 - Uploading a replacement logo is included when saving the Header & navigation group.
 - No new database migration is required; the existing `theme_settings` and `site_settings` tables are used.
+
+
+## Theme defaults and quick-save controls
+
+- Each Theme group reveals **Save changes** and **Reset** when one of its controls is edited.
+- The sticky Theme action bar provides **Save all changes** and **Save current changes as default**.
+- Saving as default stores a snapshot of all current theme settings and the active logo in the existing `site_settings` table under an internal key.
+- **Restore saved default theme** restores that snapshot, including the logo. If no custom snapshot exists, it falls back to the built-in system defaults.
+- The internal snapshot is hidden from the normal Global website settings editor. No database migration is needed.
