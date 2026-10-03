@@ -7,7 +7,7 @@ foreach($services as &$s){$s['inc']=json_decode($s['inclusions']??'[]',true)?:[]
 $testimonials=db()->query("SELECT customer_name AS name,category AS cat,review AS text,is_sample,rating,customer_image FROM testimonials WHERE is_active=1 AND is_sample=0 ORDER BY sort_order,id")->fetchAll();
 $settings=db()->query("SELECT setting_key,setting_value FROM site_settings")->fetchAll(PDO::FETCH_KEY_PAIR);
 $content=db()->query("SELECT content_key,content_value FROM website_content")->fetchAll(PDO::FETCH_KEY_PAIR);
-$extendedTheme = [
+$extendedTheme = ['logo_background'=>'#ffffff','logo_padding'=>'10','logo_radius'=>'16','logo_width'=>'220','custom_button_target'=>'load_more','custom_button_css'=>'',
   'hero_background' => '#eaf8f5',
   'hero_text_color' => '#123342',
   'hero_heading_color' => '#123342',
@@ -130,6 +130,10 @@ var radius=Math.max(0,Math.min(48,parseInt(t.border_radius||18,10)||18));
 s.setProperty("--container-width",width+"px");
 s.setProperty("--section-spacing",spacing+"px");
 s.setProperty("--border-radius",radius+"px");
+var logoPadding=Math.max(0,Math.min(60,parseInt(t.logo_padding||10,10)||0)),logoRadius=Math.max(0,Math.min(60,parseInt(t.logo_radius||16,10)||0)),logoWidth=Math.max(80,Math.min(520,parseInt(t.logo_width||220,10)||220));
+s.setProperty("--logo-background",/^#[0-9a-f]{6}$/i.test(t.logo_background||"")?t.logo_background:"#ffffff");s.setProperty("--logo-padding",logoPadding+"px");s.setProperty("--logo-radius",logoRadius+"px");s.setProperty("--logo-width",logoWidth+"px");
+var buttonTargets={load_more:".load-more",explore_service:".explore-service-btn",header_booking:"header .hd>a.btn",hero_primary:".hero .hero-actions>a.btn:not(.o)",hero_secondary:".hero .hero-actions>a.btn.o",menu_button:"header #bg",all_buttons:".btn,.explore-service-btn,.load-more"},buttonTarget=buttonTargets[t.custom_button_target]||buttonTargets.load_more,buttonCss=String(t.custom_button_css||"");
+if(buttonCss&&/^[a-zA-Z0-9#(),.%\s\/+\-":;]+$/.test(buttonCss)&&!/(url\s*\(|expression|javascript|@import|[{}<>])/i.test(buttonCss)){var customStyle=document.createElement("style");customStyle.id="wave-admin-button-style";customStyle.textContent=buttonTarget+"{"+buttonCss+"}";document.head.appendChild(customStyle);}
 s.setProperty("--line","color-mix(in srgb, "+(t.text_color||"#344f59")+" 18%, transparent)");
 s.setProperty("--shadow","0 18px 48px color-mix(in srgb, "+(t.primary_color||"#0b6f82")+" 14%, transparent)");
 var imageMap={hero_background_image:"--hero-background-image",default_section_background_image:"--default-section-background-image",footer_background_image:"--footer-background-image"};

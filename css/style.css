@@ -692,3 +692,18 @@ input,select,textarea{background:var(--form-background-paint,var(--form-backgrou
 @media(prefers-reduced-motion:reduce){
  .testimonial-arrow,.testimonial-dot{transition:none}
 }
+
+/* Admin-managed brand lockup and refined service gallery actions */
+.brand-lockup,.logo.lg{background:var(--logo-background,#fff);padding:var(--logo-padding,10px);border-radius:var(--logo-radius,16px);display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+.brand-lockup img,.logo.lg img{width:var(--logo-width,220px);max-width:100%;height:auto;object-fit:contain;display:block}
+.service-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.service-actions .load-more{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:12px!important;width:auto!important;min-width:205px;max-width:100%;min-height:56px;padding:10px 18px 10px 22px!important;white-space:nowrap;overflow:visible;border:1px solid color-mix(in srgb,var(--button-background) 70%,transparent);border-radius:999px;background:var(--button-background)!important;color:var(--button-text-color)!important;font:700 .95rem/1.15 'Inter',sans-serif!important;box-shadow:0 10px 26px color-mix(in srgb,var(--button-background) 20%,transparent);transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}
+.service-actions .load-more:hover{transform:translateY(-2px);filter:brightness(1.03);box-shadow:0 14px 30px color-mix(in srgb,var(--button-background) 28%,transparent)}
+.service-actions .load-more span{display:inline-flex!important;flex:0 0 30px;align-items:center;justify-content:center;width:30px;height:30px;margin:0!important;border-radius:50%;background:color-mix(in srgb,var(--button-text-color) 12%,transparent);color:var(--button-text-color);font-size:1.2rem;line-height:1;transition:transform .2s ease,background .2s ease}
+.service-actions .load-more:hover span{transform:rotate(90deg)}
+.service-actions .load-more:disabled{opacity:.55;transform:none;box-shadow:none}
+.logo-manager{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.8fr);gap:24px;align-items:center;padding:20px;margin:0 0 24px;border:1px solid var(--line,#dce9e7);border-radius:18px;background:#f8fbfa}
+.logo-manager-preview{display:block;max-width:260px;max-height:100px;object-fit:contain;padding:10px;background:var(--logo-background,#fff);border-radius:14px;border:1px solid #e3eceb}
+.custom-css-field{grid-column:1/-1}
+.custom-css-field textarea{width:100%;min-height:150px;padding:14px;border:1px solid #dce5e8;border-radius:12px;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;background:#0d2530;color:#e8f4f5}
+@media(max-width:640px){.service-actions{align-items:stretch}.service-actions .load-more,.service-actions .explore-service-btn{width:100%;justify-content:center}.logo-manager{grid-template-columns:1fr}}

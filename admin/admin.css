@@ -37,10 +37,10 @@
 
 .gradient-toggle select{min-height:44px}.theme-group small{display:block;color:#738893;font-size:.78rem;margin-top:5px}.theme-group input[type=number]{max-width:100%}
 
-.admin-form{position:relative;padding-bottom:86px}
-.admin-inline-actions{position:sticky;bottom:10px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:24px -2px -66px;padding:14px 16px;background:rgba(255,255,255,.97);border:1px solid #dce9ec;border-radius:16px;box-shadow:0 12px 34px rgba(12,48,59,.13);backdrop-filter:blur(12px)}
-.admin-inline-actions.is-dirty{border-color:#20b99a;box-shadow:0 12px 34px rgba(12,48,59,.16),inset 3px 0 #20b99a}
-.admin-save-status{font-size:13px;font-weight:700;color:#66818a}.admin-inline-actions.is-dirty .admin-save-status{color:#087d69}
-.admin-inline-buttons{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.admin-inline-actions .btn{min-height:40px;padding:9px 14px;font-size:13px}
-.admin-inline-actions .btn.subtle{background:#edf5f6;color:#234652;border:1px solid #d8e6e9}.admin-inline-actions .btn:disabled{opacity:.48;cursor:not-allowed}
-@media(max-width:700px){.admin-inline-actions{bottom:6px;margin-left:0;margin-right:0;padding:12px;border-radius:13px;align-items:stretch}.admin-inline-buttons{width:100%;display:grid;grid-template-columns:1fr 1fr}.admin-inline-buttons .admin-save-now{grid-column:1/-1}.admin-save-status{width:100%}}
+/* Logo manager and scoped button CSS editor */
+.logo-manager{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.8fr);gap:24px;align-items:center;padding:20px;margin:0 0 24px;border:1px solid #dce9e7;border-radius:18px;background:#f8fbfa}
+.logo-manager-preview{display:block;max-width:260px;max-height:100px;object-fit:contain;padding:10px;background:#fff;border-radius:14px;border:1px solid #e3eceb}
+.custom-css-field{grid-column:1/-1}
+.custom-css-field textarea{width:100%;min-height:150px;padding:14px;border:1px solid #dce5e8;border-radius:12px;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;background:#0d2530;color:#e8f4f5}
+.logo-manager label small,.custom-css-field small{display:block;margin-top:7px;color:#71838c;font-size:12px;line-height:1.5}
+@media(max-width:680px){.logo-manager{grid-template-columns:1fr}}
