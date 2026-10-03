@@ -497,3 +497,59 @@ body{background-color:var(--page-background);color:var(--text-color)}footer{colo
 #ov p{margin-top:4px;color:#48646c;font-size:13px;letter-spacing:.04em}
 #cl{top:28px;right:clamp(20px,5vw,72px);padding:10px 22px;background:#fff;border-color:rgba(28,86,100,.2);box-shadow:0 8px 24px rgba(15,60,72,.08);font-size:13px;font-weight:650}
 @media(max-width:640px){#ov{padding:84px 26px 32px;justify-content:center}#ov nav{grid-template-columns:1fr;gap:2px}#ov nav a{min-height:48px;font-size:clamp(1.45rem,7vw,2rem)}#ov p{font-size:12px;line-height:1.6}}
+
+
+/* Wave Photography – database-driven global theme layer.
+   Values are injected safely by data.php from admin/theme settings. */
+:root{
+  --primary-color:#0b6f82;--secondary-color:#1c5664;--accent-color:#20b99a;
+  --page-background:#f5fbfa;--section-background:#fff;--card-background:#fff;
+  --header-background:#1c5664;--footer-background:#073b49;
+  --heading-color:#123342;--text-color:#344f59;--nav-text-color:#fff;
+  --button-background:#20b99a;--button-text-color:#073b49;
+  --font-family:Inter;--container-width:1200px;--section-spacing:80px;--border-radius:18px;
+}
+html,body{background-color:var(--page-background)}
+body{font-family:var(--font-family),Arial,sans-serif!important;color:var(--text-color)}
+h1,h2,h3,.service-heading h3,.cta h2{color:var(--heading-color)}
+.w{max-width:var(--container-width)!important}
+.sec{padding-top:var(--section-spacing)!important;padding-bottom:var(--section-spacing)!important}
+header{background:var(--header-background)!important;color:var(--nav-text-color)}
+header a,header button,#bg{color:var(--nav-text-color)!important}
+header #bg{border-color:color-mix(in srgb,var(--nav-text-color) 55%,transparent)}
+header .btn,.btn,.hero .btn:not(.o),.explore-service-btn{
+  background:var(--button-background)!important;color:var(--button-text-color)!important;
+  border-radius:var(--border-radius)!important;box-shadow:0 10px 26px color-mix(in srgb,var(--button-background) 24%,transparent)
+}
+.btn.o{border-radius:var(--border-radius)!important}
+#ov{background:linear-gradient(135deg,var(--page-background),var(--section-background) 60%,var(--secondary-color))!important}
+#ov nav a:hover,#ov nav a.on{color:var(--primary-color)!important}
+#cl{border-color:var(--primary-color);color:var(--heading-color)}
+.hero{background:linear-gradient(120deg,var(--secondary-color),var(--primary-color))!important}
+.hero h1{color:#fff!important}
+.hero-kicker,.hero-photo-note span{color:var(--accent-color)}
+.sec,.alt,.ph1{background-color:var(--section-background)}
+.card,.service-showcase,.tc,.why div,.vid{background-color:var(--card-background)}
+.card,.service-showcase,.service-shot,.ph,.tc,.why div,.btn,.load-more,.explore-service-btn{
+  border-radius:var(--border-radius)!important
+}
+.card p,.service-heading p,.page-intro,.hero-proof{color:var(--text-color)}
+.service-showcase{border-color:color-mix(in srgb,var(--text-color) 15%,transparent)}
+.eyebrow,.text-link,.load-more{color:var(--primary-color)}
+.service-shot{background:var(--section-background)}
+.service-shot:before{background:var(--accent-color)}
+.fl button.on,.fl button:hover{background:var(--primary-color);border-color:var(--primary-color)}
+.why div{border-left-color:var(--accent-color)}
+.tc small{background:var(--section-background);color:var(--primary-color)}
+.cta{background:linear-gradient(120deg,var(--section-background),color-mix(in srgb,var(--accent-color) 20%,var(--page-background)))!important}
+footer{background:var(--footer-background)!important;color:var(--nav-text-color)}
+footer h3,footer a{color:var(--nav-text-color)}
+footer a:hover{color:var(--accent-color)}
+#wa{background:var(--accent-color)}
+input:focus,select:focus,textarea:focus{border-color:var(--primary-color);outline-color:color-mix(in srgb,var(--primary-color) 22%,transparent)}
+
+
+/* Ensure the chosen page colour is the actual canvas, not hidden beneath the legacy gradient. */
+body{background:var(--page-background)!important}
+
+body,*{font-family:var(--font-family),Arial,sans-serif!important}

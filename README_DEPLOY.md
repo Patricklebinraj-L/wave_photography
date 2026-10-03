@@ -92,3 +92,8 @@ Upload the complete contents of this `wave-php` folder into the existing Infinit
 
 ### Production verification still required
 The source package has been syntax-checked locally. A live connection to the InfinityFree MySQL database, file-upload permission test, and browser-level admin workflow test must be completed on the hosting account after deployment.
+
+
+## Dynamic theme settings
+
+Theme values saved in Admin > Theme are loaded by `data.php` from `theme_settings` on every public page request. The endpoint sends no-cache headers, and public stylesheet URLs use the CSS file modification time to avoid stale cached styles. Semantic theme variables are bridged to the legacy palette variables used by the original stylesheet. The page background, section/card surfaces, header/footer, headings/body text, navigation, buttons, font family, container width, section spacing and border radius are all driven by the saved settings. No additional database migration is required for this theme propagation update.

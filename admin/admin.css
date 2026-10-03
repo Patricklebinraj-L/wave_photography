@@ -23,3 +23,12 @@
 .photo-card{box-shadow:0 4px 16px rgba(20,60,72,.04)}
 .alert{border:1px solid transparent}
 @media(max-width:760px){.sidebar{position:fixed;height:100dvh;z-index:30}.topbar{position:sticky;top:0}.panel{padding:17px}.content-area{padding-top:20px}}
+
+.theme-preview{margin:18px 0 26px;border:1px solid var(--line,#dce7ea);border-radius:16px;overflow:hidden;background:var(--preview-page);color:var(--preview-text)}
+.theme-preview-header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;background:var(--preview-header);color:#fff;font-weight:800}
+.theme-preview-body{padding:26px 22px;background:var(--preview-page);color:var(--preview-text)}
+.theme-preview-body b{display:block;color:var(--preview-heading);font-size:clamp(20px,3vw,30px);line-height:1.2}
+.theme-preview-body p{margin:9px 0 18px;color:var(--preview-text)}
+.theme-preview-button{display:inline-block;padding:10px 17px;border-radius:10px;background:var(--preview-button);color:var(--preview-button-text);font-weight:800}
+
+.admin-form input[type=color]{width:100%;height:46px;min-height:46px;padding:5px;border:1px solid #dce7e9;border-radius:10px;background:#fff;cursor:pointer}
