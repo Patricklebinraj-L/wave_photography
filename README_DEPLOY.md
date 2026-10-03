@@ -97,3 +97,8 @@ The source package has been syntax-checked locally. A live connection to the Inf
 ## Dynamic theme settings
 
 Theme values saved in Admin > Theme are loaded by `data.php` from `theme_settings` on every public page request. The endpoint sends no-cache headers, and public stylesheet URLs use the CSS file modification time to avoid stale cached styles. Semantic theme variables are bridged to the legacy palette variables used by the original stylesheet. The page background, section/card surfaces, header/footer, headings/body text, navigation, buttons, font family, container width, section spacing and border radius are all driven by the saved settings. No additional database migration is required for this theme propagation update.
+
+
+## Admin Theme page HTTP 500 fix
+
+The Theme editor now selects only `setting_key` and `setting_value` when using `PDO::FETCH_KEY_PAIR`. The migration schema also contains `updated_at`, so selecting every column would return three columns and cause PDO to throw an exception. Upload the updated `admin/index.php`; no database migration or data reset is required.
