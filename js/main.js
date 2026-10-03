@@ -93,8 +93,52 @@ list=P.filter(p=>p.featured);$('#feat').html(list.length?list.map(ph).join(''):'
 $('#why').html(WHY.map(w=>'<div><h3>'+w+'</h3></div>').join(''));
 $('#ig').html(P.filter(p=>!p.placeholder).slice(0,8).map(p=>'<a href="'+IG+'" target="_blank" rel="noopener"><img loading="lazy" src="'+(p.thumb||p.image)+'" alt="Wave Photography sample photograph"></a>').join(''));
 if($('#fl').length){var cats=['All'].concat(Array.from(new Set(P.map(function(p){return p.category;}).filter(Boolean))).sort());cats.forEach(c=>$('#fl').append($('<button>').text(c).toggleClass('on',c=='All').on('click',function(){$('#fl button').removeClass('on');$(this).addClass('on');fill(c)})));fill('All')}
-var t=0;function tt(){if(!TESTI.length){$('#tt').html('<p>Customer stories will appear here soon.</p>');return;}var x=TESTI[t],sample=Number(x.is_sample)?'<small>SAMPLE</small>':'',avatar=x.customer_image?'<img class="testimonial-avatar" src="'+esc(x.customer_image)+'" alt="'+esc(x.name)+'">':'';$('#tt').stop().fadeOut(200,function(){$(this).html(sample+avatar+'<q>'+esc(x.text)+'</q><b>'+esc(x.name)+'</b> · '+esc(x.cat)+'<br>'+('★'.repeat(Number(x.rating||5)))+' (customer review)').fadeIn(300)})}
-if($('#tt').length){tt();$('#tp').on('click',()=>{t=(t+TESTI.length-1)%TESTI.length;tt()});$('#tn').on('click',()=>{t=(t+1)%TESTI.length;tt()});setInterval(()=>$('#tn').click(),7000)}
+var t=0,testimonialTimer=null;
+function testimonialInitials(name){
+ return String(name||'Wave Client').trim().split(/\\s+/).slice(0,2).map(function(part){return part.charAt(0).toUpperCase();}).join('')||'WC';
+}
+function renderTestimonial(){
+ var $stage=$('#tt');
+ if(!TESTI.length){
+  $stage.html('<div class="testimonial-empty"><span class="testimonial-empty-icon" aria-hidden="true">✦</span><h3>Your story could be next.</h3><p>We would love to capture a moment that means the world to you.</p><a class="testimonial-contact" href="contact.php">Plan your session <span aria-hidden="true">↗</span></a></div>');
+  $('.testimonial-controls').hide();
+  return;
+ }
+ var x=TESTI[t],rating=Math.max(0,Math.min(5,Number(x.rating)||5));
+ var avatar=x.customer_image
+  ?'<img class="testimonial-avatar" loading="lazy" src="'+esc(x.customer_image)+'" alt="'+esc(x.name)+'" onerror="this.hidden=true;this.nextElementSibling.hidden=false">'
+   +'<span class="testimonial-avatar-fallback" hidden>'+esc(testimonialInitials(x.name))+'</span>'
+  :'<span class="testimonial-avatar-fallback">'+esc(testimonialInitials(x.name))+'</span>';
+ var sample=Number(x.is_sample)?'<span class="testimonial-sample-label">Sample review</span>':'';
+ var stars=Array.from({length:5},function(_,i){return '<span class="'+(i<rating?'is-filled':'')+'" aria-hidden="true">★</span>';}).join('');
+ var card='<article class="testimonial-entry">'+sample+
+  '<div class="testimonial-stars" role="img" aria-label="'+rating+' out of 5 stars">'+stars+'</div>'+
+  '<blockquote>'+esc(x.text)+'</blockquote>'+
+  '<div class="testimonial-author">'+avatar+'<div class="testimonial-author-copy"><strong>'+esc(x.name)+'</strong><span>'+esc(x.cat||'Wave Photography client')+'</span></div></div>'+
+  '</article>';
+ $stage.stop(true,true).css('opacity',0).html(card).animate({opacity:1},260);
+ var dots=TESTI.map(function(item,i){return '<button type="button" class="testimonial-dot '+(i===t?'is-active':'')+'" data-testimonial-index="'+i+'" aria-label="Show testimonial '+(i+1)+'" aria-current="'+(i===t?'true':'false')+'"></button>';}).join('');
+ $('#testimonial-dots').html(dots);
+ $('.testimonial-controls').toggle(TESTI.length>1);
+}
+function moveTestimonial(direction){
+ if(TESTI.length<2)return;
+ t=(t+direction+TESTI.length)%TESTI.length;
+ renderTestimonial();
+}
+if($('#tt').length){
+ renderTestimonial();
+ $('#tp').on('click',function(){moveTestimonial(-1);});
+ $('#tn').on('click',function(){moveTestimonial(1);});
+ $(document).on('click','[data-testimonial-index]',function(){
+  t=Number($(this).attr('data-testimonial-index'))||0;renderTestimonial();
+ });
+ if(TESTI.length>1){
+  testimonialTimer=window.setInterval(function(){
+   if(!document.hidden&&!$('#testimonials:hover').length)moveTestimonial(1);
+  },8000);
+ }
+}
 if(pg=='service'){var s=SERVICES.find(x=>x.s==new URLSearchParams(location.search).get('s'))||SERVICES[0];document.title=s.n+' | Wave Photography';
 $('#st').text(s.n);$('#sd').text(s.d);$('#si').attr({src:s.i,alt:s.n});$('#sl').html(s.inc.map(i=>'<li>'+esc(i)+'</li>').join(''));$('#sq').attr('href','contact.php?s='+encodeURIComponent(s.n));
 list=P.filter(p=>p.category==s.c);$('#ms').html(list.map(ph).join(''))}

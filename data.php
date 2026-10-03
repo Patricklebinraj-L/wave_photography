@@ -4,7 +4,7 @@ header('Content-Type: application/javascript; charset=utf-8');header('Cache-Cont
 $photos=db()->query("SELECT id,title,category,image,thumbnail AS thumb,caption,alt_text,featured,aspect_ratio AS ratio,is_placeholder AS placeholder FROM portfolio_photos WHERE is_active=1 ORDER BY sort_order,id")->fetchAll();
 $services=db()->query("SELECT slug AS s,name AS n,category AS c,image AS i,description AS d,inclusions FROM services WHERE is_active=1 ORDER BY sort_order,id")->fetchAll();
 foreach($services as &$s){$s['inc']=json_decode($s['inclusions']??'[]',true)?:[];unset($s['inclusions']);}unset($s);
-$testimonials=db()->query("SELECT customer_name AS name,category AS cat,review AS text,is_sample,rating,customer_image FROM testimonials WHERE is_active=1 ORDER BY sort_order,id")->fetchAll();
+$testimonials=db()->query("SELECT customer_name AS name,category AS cat,review AS text,is_sample,rating,customer_image FROM testimonials WHERE is_active=1 AND is_sample=0 ORDER BY sort_order,id")->fetchAll();
 $settings=db()->query("SELECT setting_key,setting_value FROM site_settings")->fetchAll(PDO::FETCH_KEY_PAIR);
 $content=db()->query("SELECT content_key,content_value FROM website_content")->fetchAll(PDO::FETCH_KEY_PAIR);
 $extendedTheme = [
@@ -43,6 +43,7 @@ $extendedTheme = [
   'overlay_menu_text_color' => '#ffffff',
   'overlay_menu_hover_color' => '#20b99a'
 ];
+$extendedTheme=array_merge($extendedTheme,['hero_gradient_enabled'=>'0','hero_gradient_start'=>'#eaf8f5','hero_gradient_end'=>'#1c5664','hero_gradient_angle'=>'135','header_gradient_enabled'=>'0','header_gradient_start'=>'#1c5664','header_gradient_end'=>'#073b49','header_gradient_angle'=>'135','footer_gradient_enabled'=>'0','footer_gradient_start'=>'#073b49','footer_gradient_end'=>'#0b4556','footer_gradient_angle'=>'135','page_gradient_enabled'=>'0','page_gradient_start'=>'#f5fbfa','page_gradient_end'=>'#eaf8f5','page_gradient_angle'=>'135','section_gradient_enabled'=>'0','section_gradient_start'=>'#f5fbfa','section_gradient_end'=>'#eaf8f5','section_gradient_angle'=>'135','light_section_gradient_enabled'=>'0','light_section_gradient_start'=>'#ffffff','light_section_gradient_end'=>'#eaf8f5','light_section_gradient_angle'=>'135','dark_section_gradient_enabled'=>'0','dark_section_gradient_start'=>'#073b49','dark_section_gradient_end'=>'#0b4556','dark_section_gradient_angle'=>'135','alt_section_gradient_enabled'=>'0','alt_section_gradient_start'=>'#eaf8f5','alt_section_gradient_end'=>'#ffffff','alt_section_gradient_angle'=>'135','cta_section_gradient_enabled'=>'0','cta_section_gradient_start'=>'#1c5664','cta_section_gradient_end'=>'#073b49','cta_section_gradient_angle'=>'135','card_gradient_enabled'=>'0','card_gradient_start'=>'#ffffff','card_gradient_end'=>'#eaf8f5','card_gradient_angle'=>'135','button_gradient_enabled'=>'0','button_gradient_start'=>'#20b99a','button_gradient_end'=>'#0b6f82','button_gradient_angle'=>'135','overlay_menu_gradient_enabled'=>'0','overlay_menu_gradient_start'=>'#073b49','overlay_menu_gradient_end'=>'#1c5664','overlay_menu_gradient_angle'=>'135','form_gradient_enabled'=>'0','form_gradient_start'=>'#ffffff','form_gradient_end'=>'#eaf8f5','form_gradient_angle'=>'135']);
 $themeSeed=db()->prepare('INSERT IGNORE INTO theme_settings(setting_key,setting_value) VALUES(?,?)');foreach($extendedTheme as $tk=>$tv)$themeSeed->execute([$tk,$tv]);
 $theme=db()->query("SELECT setting_key,setting_value FROM theme_settings")->fetchAll(PDO::FETCH_KEY_PAIR);
 $allowedFonts=['Inter','Arial','Georgia','Poppins','Roboto','Montserrat'];if(!in_array($theme['font_family']??'Inter',$allowedFonts,true))$theme['font_family']='Inter';
@@ -109,7 +110,20 @@ var map={
  overlay_menu_text_color:["--overlay-menu-text-color"],
  overlay_menu_hover_color:["--overlay-menu-hover-color"]
 };
+
 Object.keys(map).forEach(function(k){var v=t[k];if(v!==undefined&&v!==null&&String(v)!==""){map[k].forEach(function(name){s.setProperty(name,String(v));});}});
+var gradientTargets = {
+"hero":{solid:"--hero-background",enabled:"hero_gradient_enabled",start:"hero_gradient_start",end:"hero_gradient_end",angle:"hero_gradient_angle"},"header":{solid:"--header-background",enabled:"header_gradient_enabled",start:"header_gradient_start",end:"header_gradient_end",angle:"header_gradient_angle"},"footer":{solid:"--footer-background",enabled:"footer_gradient_enabled",start:"footer_gradient_start",end:"footer_gradient_end",angle:"footer_gradient_angle"},"page":{solid:"--page-background",enabled:"page_gradient_enabled",start:"page_gradient_start",end:"page_gradient_end",angle:"page_gradient_angle"},"section":{solid:"--default-section-background",enabled:"section_gradient_enabled",start:"section_gradient_start",end:"section_gradient_end",angle:"section_gradient_angle"},"light_section":{solid:"--light-section-background",enabled:"light_section_gradient_enabled",start:"light_section_gradient_start",end:"light_section_gradient_end",angle:"light_section_gradient_angle"},"dark_section":{solid:"--dark-section-background",enabled:"dark_section_gradient_enabled",start:"dark_section_gradient_start",end:"dark_section_gradient_end",angle:"dark_section_gradient_angle"},"alt_section":{solid:"--alt-section-background",enabled:"alt_section_gradient_enabled",start:"alt_section_gradient_start",end:"alt_section_gradient_end",angle:"alt_section_gradient_angle"},"cta_section":{solid:"--cta-section-background",enabled:"cta_section_gradient_enabled",start:"cta_section_gradient_start",end:"cta_section_gradient_end",angle:"cta_section_gradient_angle"},"card":{solid:"--card-background",enabled:"card_gradient_enabled",start:"card_gradient_start",end:"card_gradient_end",angle:"card_gradient_angle"},"button":{solid:"--button-background",enabled:"button_gradient_enabled",start:"button_gradient_start",end:"button_gradient_end",angle:"button_gradient_angle"},"overlay_menu":{solid:"--overlay-menu-background",enabled:"overlay_menu_gradient_enabled",start:"overlay_menu_gradient_start",end:"overlay_menu_gradient_end",angle:"overlay_menu_gradient_angle"},"form":{solid:"--form-background",enabled:"form_gradient_enabled",start:"form_gradient_start",end:"form_gradient_end",angle:"form_gradient_angle"}
+};
+Object.keys(gradientTargets).forEach(function(name){
+ var g=gradientTargets[name],enabled=String(t[g.enabled]||"0")==="1";
+ var start=/^#[0-9a-f]{6}$/i.test(t[g.start]||"")?t[g.start]:"#ffffff";
+ var end=/^#[0-9a-f]{6}$/i.test(t[g.end]||"")?t[g.end]:"#eaf8f5";
+ var angle=Math.max(0,Math.min(360,parseInt(t[g.angle]||135,10)||135));
+ var paint=enabled?"linear-gradient("+angle+"deg,"+start+","+end+")":"var("+g.solid+")";
+ s.setProperty("--"+name.replace(/_/g,"-")+"-background-paint",paint);
+});
+
 var width=Math.max(760,Math.min(1800,parseInt(t.container_width||1200,10)||1200));
 var spacing=Math.max(32,Math.min(180,parseInt(t.section_spacing||80,10)||80));
 var radius=Math.max(0,Math.min(48,parseInt(t.border_radius||18,10)||18));
