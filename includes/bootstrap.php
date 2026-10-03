@@ -1,0 +1,10 @@
+<?php
+declare(strict_types=1);
+if (session_status() !== PHP_SESSION_ACTIVE) { ini_set('session.use_strict_mode','1'); ini_set('session.use_only_cookies','1'); $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'); session_set_cookie_params(['lifetime'=>0,'path'=>'/','secure'=>$secure,'httponly'=>true,'samesite'=>'Lax']); session_start(); }
+require_once __DIR__.'/db.php'; require_once __DIR__.'/migrate.php';
+try { $pdo=db(); runMigrations($pdo); } catch(Throwable $e) { error_log('[Wave Photography DB] '.$e->getMessage()); http_response_code(503); echo '<!doctype html><meta charset="utf-8"><title>Temporarily unavailable</title><main style="font:16px Arial;max-width:680px;margin:12vh auto;padding:24px"><h1>Website setup is not complete</h1><p>The database could not be reached or initialized. Please verify the MySQL database details, that the database exists in InfinityFree, and that PHP has the PDO MySQL extension enabled.</p><p>Technical details are recorded in the server error log.</p></main>'; exit; }
+$requestedPath=parse_url($_SERVER['REQUEST_URI']??'/',PHP_URL_PATH);
+$isAdminRequest=(strpos($requestedPath,'/admin')!==false);
+if(!$isAdminRequest && empty($_SESSION['wave_admin_id'])){
+  try{$visibility=db()->query("SELECT setting_key,setting_value FROM site_settings WHERE setting_key IN ('maintenance_mode','website_visibility')")->fetchAll(PDO::FETCH_KEY_PAIR);if(($visibility['maintenance_mode']??'0')==='1'||($visibility['website_visibility']??'1')==='0'){http_response_code(503);header('Retry-After: 3600');echo '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wave Photography</title></head><body style="font:16px Arial;background:#f3faf9;color:#173b49;display:grid;place-items:center;min-height:90vh;text-align:center"><main><h1>We’ll be back soon</h1><p>Wave Photography is updating the website. Please visit again shortly.</p></main></body></html>';exit;}}catch(Throwable $e){error_log('[Wave settings] '.$e->getMessage());}
+}

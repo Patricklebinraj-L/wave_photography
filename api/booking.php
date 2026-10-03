@@ -1,0 +1,8 @@
+<?php
+require_once dirname(__DIR__).'/includes/bootstrap.php';
+header('Content-Type: application/json; charset=utf-8');
+if($_SERVER['REQUEST_METHOD']!=='POST'){http_response_code(405);echo json_encode(['ok'=>false,'message'=>'Method not allowed']);exit;}
+$in=json_decode(file_get_contents('php://input'),true)??$_POST;
+$name=trim((string)($in['name']??''));$phone=preg_replace('/\s+/','',trim((string)($in['phone']??'')));$email=trim((string)($in['email']??''));$type=trim((string)($in['type']??''));$date=trim((string)($in['date']??''));$loc=trim((string)($in['loc']??''));$pkg=trim((string)($in['pkg']??''));$msg=trim((string)($in['msg']??''));
+$errors=[];if($name===''||strlen($name)>160)$errors[]='Enter your name.';if(!preg_match('/^(\+91)?[6-9][0-9]{9}$/',$phone))$errors[]='Enter a valid 10-digit phone number.';if($email!==''&&!filter_var($email,FILTER_VALIDATE_EMAIL))$errors[]='Enter a valid email.';if($type===''||strlen($type)>100)$errors[]='Choose an event type.';if($date!==''&&(!preg_match('/^\d{4}-\d{2}-\d{2}$/',$date)||$date<date('Y-m-d')))$errors[]='Choose a valid future event date.';if($errors){http_response_code(422);echo json_encode(['ok'=>false,'errors'=>$errors]);exit;}
+$q=db()->prepare('INSERT INTO bookings(customer_name,phone,email,event_type,event_date,event_location,package_name,message) VALUES(?,?,?,?,NULLIF(?,\'\'),NULLIF(?,\'\'),NULLIF(?,\'\'),NULLIF(?,\'\'))');$q->execute([$name,$phone,$email?:null,$type,$date,$loc,$pkg,$msg]);echo json_encode(['ok'=>true,'booking_id'=>(int)db()->lastInsertId(),'whatsapp'=>db()->query("SELECT setting_value FROM site_settings WHERE setting_key='whatsapp'")->fetchColumn()]);

@@ -1,0 +1,372 @@
+{
+  "photos": [
+    {
+      "id": 1,
+      "title": "Dusk at the Tower",
+      "category": "Pre-Wedding",
+      "image": "assets/pre-wedding/dusk-tower.webp",
+      "thumb": "assets/pre-wedding/dusk-tower-sm.webp",
+      "featured": true,
+      "ratio": "1600/1067"
+    },
+    {
+      "id": 2,
+      "title": "Twirl on the Steps",
+      "category": "Pre-Wedding",
+      "image": "assets/pre-wedding/twirl-steps.webp",
+      "thumb": "assets/pre-wedding/twirl-steps-sm.webp",
+      "featured": true,
+      "ratio": "1600/1067"
+    },
+    {
+      "id": 3,
+      "title": "Blue Door and Bougainvillea",
+      "category": "Wedding",
+      "image": "assets/weddings/blue-door.webp",
+      "thumb": "assets/weddings/blue-door-sm.webp",
+      "featured": true,
+      "ratio": "1068/1601"
+    },
+    {
+      "id": 4,
+      "title": "Silhouette of Two",
+      "category": "Wedding",
+      "image": "assets/weddings/silhouette.webp",
+      "thumb": "assets/weddings/silhouette-sm.webp",
+      "featured": true,
+      "ratio": "1600/1067"
+    },
+    {
+      "id": 5,
+      "title": "Lantern Courtyard",
+      "category": "Pre-Wedding",
+      "image": "assets/pre-wedding/lantern-courtyard.webp",
+      "thumb": "assets/pre-wedding/lantern-courtyard-sm.webp",
+      "featured": true,
+      "ratio": "1600/1067"
+    },
+    {
+      "id": 6,
+      "title": "Yellow House Bench",
+      "category": "Pre-Wedding",
+      "image": "assets/pre-wedding/yellow-bench.webp",
+      "thumb": "assets/pre-wedding/yellow-bench-sm.webp",
+      "featured": false,
+      "ratio": "1600/1067"
+    },
+    {
+      "id": 7,
+      "title": "Saree Smile",
+      "category": "Portrait",
+      "image": "assets/portraits/saree-smile.webp",
+      "thumb": "assets/portraits/saree-smile-sm.webp",
+      "featured": true,
+      "ratio": "5304/7952"
+    },
+    {
+      "id": 8,
+      "title": "Garden Walk in Pink",
+      "category": "Portrait",
+      "image": "assets/portraits/saree-full.webp",
+      "thumb": "assets/portraits/saree-full-sm.webp",
+      "featured": false,
+      "ratio": "3891/7952"
+    },
+    {
+      "id": 9,
+      "title": "A Glance Over the Shoulder",
+      "category": "Portrait",
+      "image": "assets/portraits/saree-glance.webp",
+      "thumb": "assets/portraits/saree-glance-sm.webp",
+      "featured": false,
+      "ratio": "5304/7952"
+    },
+    {
+      "title": "Forehead Kiss",
+      "category": "Post-Wedding",
+      "image": "assets/post-wedding/forehead-kiss.webp",
+      "thumb": "assets/post-wedding/forehead-kiss-sm.webp",
+      "featured": true,
+      "ratio": "854/1280",
+      "id": 10
+    },
+    {
+      "title": "Daisy Saree Duet",
+      "category": "Post-Wedding",
+      "image": "assets/post-wedding/daisy-duet.webp",
+      "thumb": "assets/post-wedding/daisy-duet-sm.webp",
+      "featured": false,
+      "ratio": "1280/853",
+      "id": 11
+    },
+    {
+      "title": "Earring Detail",
+      "category": "Post-Wedding",
+      "image": "assets/post-wedding/earring-detail.webp",
+      "thumb": "assets/post-wedding/earring-detail-sm.webp",
+      "featured": false,
+      "ratio": "854/1280",
+      "id": 12
+    },
+    {
+      "title": "Resting on the Sand",
+      "category": "Post-Wedding",
+      "image": "assets/post-wedding/resting-sand.webp",
+      "thumb": "assets/post-wedding/resting-sand-sm.webp",
+      "featured": true,
+      "ratio": "1280/853",
+      "id": 13
+    },
+    {
+      "title": "Hand in Hand by the Sea",
+      "category": "Post-Wedding",
+      "image": "assets/post-wedding/hand-in-hand.webp",
+      "thumb": "assets/post-wedding/hand-in-hand-sm.webp",
+      "featured": true,
+      "ratio": "854/1280",
+      "id": 14
+    },
+    {
+      "id": 15,
+      "title": "Little Sunshine – Newborn Session",
+      "category": "Baby",
+      "image": "assets/newborn/sample-02.svg",
+      "featured": false,
+      "ratio": "800/800",
+      "placeholder": true
+    },
+    {
+      "id": 16,
+      "title": "A Mother's Beautiful Journey",
+      "category": "Maternity",
+      "image": "assets/maternity/sample-03.svg",
+      "featured": false,
+      "ratio": "800/1100",
+      "placeholder": true
+    },
+    {
+      "id": 17,
+      "title": "Birthday Wonderland",
+      "category": "Birthday",
+      "image": "assets/birthdays/sample-04.svg",
+      "featured": false,
+      "ratio": "800/1000",
+      "placeholder": true
+    },
+    {
+      "id": 18,
+      "title": "A Day Full of Happiness",
+      "category": "Baby Shower",
+      "image": "assets/baby-shower/sample-06.svg",
+      "featured": false,
+      "ratio": "800/800",
+      "placeholder": true
+    },
+    {
+      "id": 19,
+      "title": "A Beautiful Family Story",
+      "category": "Family",
+      "image": "assets/family/sample-08.svg",
+      "featured": false,
+      "ratio": "800/1000",
+      "placeholder": true
+    },
+    {
+      "id": 20,
+      "title": "Cake and Confetti",
+      "category": "Birthday",
+      "image": "assets/birthdays/sample-12.svg",
+      "featured": false,
+      "ratio": "800/1000",
+      "placeholder": true
+    },
+    {
+      "id": 21,
+      "title": "Together Always",
+      "category": "Family",
+      "image": "assets/family/sample-13.svg",
+      "featured": false,
+      "ratio": "1000/700",
+      "placeholder": true
+    },
+    {
+      "id": 22,
+      "title": "Little Storybook",
+      "category": "Theme Shoot",
+      "image": "assets/gallery/sample-14.svg",
+      "featured": false,
+      "ratio": "800/800",
+      "placeholder": true
+    }
+  ],
+  "services": [
+    {
+      "s": "weddings",
+      "n": "Weddings",
+      "c": "Wedding",
+      "i": "assets/weddings/blue-door-sm.webp",
+      "d": "Traditional rituals, quiet glances and the whole celebration, told candidly.",
+      "inc": [
+        "Full-day coverage",
+        "Candid + traditional",
+        "Edited gallery",
+        "Premium album"
+      ]
+    },
+    {
+      "s": "pre-wedding",
+      "n": "Pre-Wedding",
+      "c": "Pre-Wedding",
+      "i": "assets/pre-wedding/dusk-tower-sm.webp",
+      "d": "Outdoor couple stories shot before the big day.",
+      "inc": [
+        "Location planning",
+        "Outfit guidance",
+        "Edited photos",
+        "Album option"
+      ]
+    },
+    {
+      "s": "post-wedding",
+      "n": "Post-Wedding",
+      "c": "Post-Wedding",
+      "i": "assets/post-wedding/resting-sand-sm.webp",
+      "d": "Relaxed couple sessions after the wedding, by the sea or anywhere you love.",
+      "inc": [
+        "Location planning",
+        "Outfit guidance",
+        "Edited photos",
+        "Album option"
+      ]
+    },
+    {
+      "s": "portraits",
+      "n": "Portraits",
+      "c": "Portrait",
+      "i": "assets/portraits/saree-smile-sm.webp",
+      "d": "Natural-light portraits in traditional and everyday looks.",
+      "inc": [
+        "Location or studio",
+        "Styling guidance",
+        "Edited photos",
+        "Album option"
+      ]
+    },
+    {
+      "s": "baby-newborn",
+      "n": "Baby & Newborn",
+      "c": "Baby",
+      "i": "assets/newborn/sample-02.svg",
+      "d": "Gentle sessions for your baby's first days and milestones.",
+      "inc": [
+        "Safe, patient posing",
+        "Props and themes",
+        "Edited photos",
+        "Album option"
+      ]
+    },
+    {
+      "s": "maternity",
+      "n": "Maternity",
+      "c": "Maternity",
+      "i": "assets/maternity/sample-03.svg",
+      "d": "Celebrate the glow of motherhood, indoors or outdoors.",
+      "inc": [
+        "Studio or outdoor",
+        "Styling tips",
+        "Edited photos",
+        "Album option"
+      ]
+    },
+    {
+      "s": "birthday",
+      "n": "Birthday Photography",
+      "c": "Birthday",
+      "i": "assets/birthdays/sample-04.svg",
+      "d": "From cake smash to party candids, every smile kept.",
+      "inc": [
+        "Event coverage",
+        "Candid moments",
+        "Edited photos",
+        "Album option"
+      ]
+    },
+    {
+      "s": "baby-shower",
+      "n": "Baby Shower",
+      "c": "Baby Shower",
+      "i": "assets/baby-shower/sample-06.svg",
+      "d": "The rituals, decor and happy faces of your baby shower.",
+      "inc": [
+        "Event coverage",
+        "Decor details",
+        "Edited photos",
+        "Album option"
+      ]
+    },
+    {
+      "s": "family",
+      "n": "Family Photography",
+      "c": "Family",
+      "i": "assets/family/sample-08.svg",
+      "d": "Relaxed portraits of every generation together.",
+      "inc": [
+        "Home or outdoor",
+        "Group + candid",
+        "Edited photos",
+        "Album option"
+      ]
+    },
+    {
+      "s": "theme-shoots",
+      "n": "Theme Shoots",
+      "c": "Theme Shoot",
+      "i": "assets/pre-wedding/yellow-bench-sm.webp",
+      "d": "Custom storybook themes for kids, couples and families.",
+      "inc": [
+        "Concept planning",
+        "Props and sets",
+        "Edited photos",
+        "Album option"
+      ]
+    }
+  ],
+  "why": [
+    "Creative Photography",
+    "Personalized Themes",
+    "Attention to Details",
+    "Beautiful Photo Albums",
+    "Professional Editing",
+    "Customer-Focused Experience",
+    "Memorable Moments",
+    "Customized Sessions"
+  ],
+  "testimonials": [
+    {
+      "name": "Sample Name A",
+      "cat": "Wedding",
+      "text": "SAMPLE REVIEW: placeholder text. Replace with real customer feedback."
+    },
+    {
+      "name": "Sample Name B",
+      "cat": "Newborn",
+      "text": "SAMPLE REVIEW: placeholder text. Replace with real customer feedback."
+    },
+    {
+      "name": "Sample Name C",
+      "cat": "Maternity",
+      "text": "SAMPLE REVIEW: placeholder text. Replace with real customer feedback."
+    },
+    {
+      "name": "Sample Name D",
+      "cat": "Birthday",
+      "text": "SAMPLE REVIEW: placeholder text. Replace with real customer feedback."
+    },
+    {
+      "name": "Sample Name E",
+      "cat": "Family",
+      "text": "SAMPLE REVIEW: placeholder text. Replace with real customer feedback."
+    }
+  ],
+  "whatsapp": "916379700521"
+}
