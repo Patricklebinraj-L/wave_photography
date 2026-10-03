@@ -102,3 +102,8 @@ Theme values saved in Admin > Theme are loaded by `data.php` from `theme_setting
 ## Admin Theme page HTTP 500 fix
 
 The Theme editor now selects only `setting_key` and `setting_value` when using `PDO::FETCH_KEY_PAIR`. The migration schema also contains `updated_at`, so selecting every column would return three columns and cause PDO to throw an exception. Upload the updated `admin/index.php`; no database migration or data reset is required.
+
+
+## Expanded Admin Theme Controls
+
+Admin > Theme now includes dedicated styling controls for the header/navigation, overlay menu, hero, standard/light/dark/alternate/CTA sections, footer, cards, buttons, forms and global layout/typography. Optional background image URL/path fields are available for the hero, standard content sections and footer. Values are stored in `theme_settings`, seeded on the public data endpoint and the admin theme page so existing installations receive the new settings without requiring a destructive database reset. Public pages load CSS using its file modification timestamp; upload the updated `admin/index.php`, `data.php`, `css/style.css`, `admin/admin.css`, and `database/migrations/004_admin_portal.php` (or the complete ZIP). Existing site content and uploaded photos are preserved.

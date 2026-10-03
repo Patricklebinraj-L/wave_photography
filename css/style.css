@@ -553,3 +553,59 @@ input:focus,select:focus,textarea:focus{border-color:var(--primary-color);outlin
 body{background:var(--page-background)!important}
 
 body,*{font-family:var(--font-family),Arial,sans-serif!important}
+
+
+/* =========================================================
+   WAVE DYNAMIC THEME SYSTEM — Admin-controlled component styles
+   Values are populated by data.php on every public request.
+   ========================================================= */
+:root{
+ --hero-background:#eaf8f5;--hero-text-color:var(--text-color);--hero-heading-color:var(--heading-color);--hero-overlay-color:#fff;
+ --default-section-background:var(--page-background);--light-section-background:#fff;--dark-section-background:#073b49;--alt-section-background:#eaf8f5;--cta-section-background:#1c5664;
+ --section-heading-color:var(--heading-color);--section-text-color:var(--text-color);
+ --header-text-color:#fff;--header-link-hover-color:var(--accent-color);
+ --footer-heading-color:#fff;--footer-text-color:#d5e6e9;--footer-link-color:#fff;
+ --card-heading-color:var(--heading-color);--card-text-color:var(--text-color);--card-border-color:#dce9e7;
+ --button-hover-background:#159d83;--button-hover-text-color:#fff;
+ --form-background:#fff;--form-text-color:var(--text-color);--form-border-color:#dce9e7;
+}
+body{background:var(--page-background)!important;color:var(--text-color)!important}
+header{background:var(--header-background)!important;color:var(--header-text-color)!important}
+header a,header button,header nav a,.hd a{color:var(--nav-text-color,var(--header-text-color))!important}
+header a:hover,header nav a:hover,.hd a:hover{color:var(--header-link-hover-color)!important}
+.hero{background-color:var(--hero-background)!important;color:var(--hero-text-color)!important;background-image:var(--hero-background-image,none)!important;background-size:cover;background-position:center}
+.hero h1,.hero h2{color:var(--hero-heading-color)!important}
+.hero:after{background:linear-gradient(90deg,color-mix(in srgb,var(--hero-overlay-color) 94%,transparent),color-mix(in srgb,var(--hero-overlay-color) 68%,transparent) 50%,transparent)!important}
+.sec{background-color:var(--default-section-background)!important;color:var(--section-text-color)!important}
+.sec h1,.sec h2,.sec h3{color:var(--section-heading-color)!important}
+.sec.lt{background-color:var(--light-section-background)!important}
+.sec.dk{background-color:var(--dark-section-background)!important;color:#fff!important}
+.sec.dk h1,.sec.dk h2,.sec.dk h3,.sec.dk p{color:#fff!important}
+.sec.alt{background-color:var(--alt-section-background)!important}
+.sec.cta{background-color:var(--cta-section-background)!important;color:#fff!important}
+.sec.cta h1,.sec.cta h2,.sec.cta h3,.sec.cta p{color:#fff!important}
+.card,.ph,.theme-card{background:var(--card-background)!important;color:var(--card-text-color)!important;border:1px solid var(--card-border-color)!important}
+.card h1,.card h2,.card h3,.card .title,.ph h3{color:var(--card-heading-color)!important}
+.card p,.card .tx,.ph p{color:var(--card-text-color)!important}
+.btn,.button,button[type=submit]{background:var(--button-background)!important;color:var(--button-text-color)!important}
+.btn:hover,.button:hover,button[type=submit]:hover{background:var(--button-hover-background)!important;color:var(--button-hover-text-color)!important}
+input,select,textarea{background:var(--form-background)!important;color:var(--form-text-color)!important;border-color:var(--form-border-color)!important}
+footer{background:var(--footer-background)!important;background-image:var(--footer-background-image,none)!important;background-size:cover;background-position:center;color:var(--footer-text-color)!important}
+footer h1,footer h2,footer h3,footer strong{color:var(--footer-heading-color)!important}
+footer a{color:var(--footer-link-color)!important}
+footer p,footer li,footer small{color:var(--footer-text-color)!important}
+.w{max-width:var(--container-width,1200px)!important}
+.sec{padding-top:var(--section-spacing,80px)!important;padding-bottom:var(--section-spacing,80px)!important}
+.card,.ph,input,select,textarea,.btn{border-radius:var(--border-radius,18px)}
+ 
+/* Fine-grained menu and section text controls */
+.sec.dk{color:var(--dark-section-text-color,#fff)!important}
+.sec.dk p,.sec.dk li,.sec.dk span{color:var(--dark-section-text-color,#fff)!important}
+.sec.cta{color:var(--cta-section-text-color,#fff)!important}
+.sec.cta p,.sec.cta li,.sec.cta span{color:var(--cta-section-text-color,#fff)!important}
+header .hd .btn{background:var(--header-button-background,var(--button-background))!important;color:var(--header-button-text-color,var(--button-text-color))!important}
+#ov{background:var(--overlay-menu-background,#073b49)!important;color:var(--overlay-menu-text-color,#fff)!important}
+#ov nav a,#ov p{color:var(--overlay-menu-text-color,#fff)!important}
+#ov nav a:hover,#ov nav a.on{color:var(--overlay-menu-hover-color,var(--accent-color))!important}
+
+.sec:not(.lt):not(.dk):not(.alt):not(.cta){background-image:var(--default-section-background-image,none)!important;background-size:cover;background-position:center}

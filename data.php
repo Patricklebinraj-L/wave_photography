@@ -7,6 +7,43 @@ foreach($services as &$s){$s['inc']=json_decode($s['inclusions']??'[]',true)?:[]
 $testimonials=db()->query("SELECT customer_name AS name,category AS cat,review AS text,is_sample,rating,customer_image FROM testimonials WHERE is_active=1 ORDER BY sort_order,id")->fetchAll();
 $settings=db()->query("SELECT setting_key,setting_value FROM site_settings")->fetchAll(PDO::FETCH_KEY_PAIR);
 $content=db()->query("SELECT content_key,content_value FROM website_content")->fetchAll(PDO::FETCH_KEY_PAIR);
+$extendedTheme = [
+  'hero_background' => '#eaf8f5',
+  'hero_text_color' => '#123342',
+  'hero_heading_color' => '#123342',
+  'hero_overlay_color' => '#ffffff',
+  'default_section_background' => '#f5fbfa',
+  'light_section_background' => '#ffffff',
+  'dark_section_background' => '#073b49',
+  'alt_section_background' => '#eaf8f5',
+  'cta_section_background' => '#1c5664',
+  'section_heading_color' => '#123342',
+  'section_text_color' => '#344f59',
+  'header_text_color' => '#ffffff',
+  'header_link_hover_color' => '#20b99a',
+  'footer_heading_color' => '#ffffff',
+  'footer_text_color' => '#d5e6e9',
+  'footer_link_color' => '#ffffff',
+  'card_heading_color' => '#123342',
+  'card_text_color' => '#344f59',
+  'card_border_color' => '#dce9e7',
+  'button_hover_background' => '#159d83',
+  'button_hover_text_color' => '#ffffff',
+  'form_background' => '#ffffff',
+  'form_text_color' => '#123342',
+  'form_border_color' => '#dce9e7',
+  'hero_background_image' => '',
+  'default_section_background_image' => '',
+  'footer_background_image' => '',
+  'dark_section_text_color' => '#ffffff',
+  'cta_section_text_color' => '#ffffff',
+  'header_button_background' => '#20b99a',
+  'header_button_text_color' => '#073b49',
+  'overlay_menu_background' => '#073b49',
+  'overlay_menu_text_color' => '#ffffff',
+  'overlay_menu_hover_color' => '#20b99a'
+];
+$themeSeed=db()->prepare('INSERT IGNORE INTO theme_settings(setting_key,setting_value) VALUES(?,?)');foreach($extendedTheme as $tk=>$tv)$themeSeed->execute([$tk,$tv]);
 $theme=db()->query("SELECT setting_key,setting_value FROM theme_settings")->fetchAll(PDO::FETCH_KEY_PAIR);
 $allowedFonts=['Inter','Arial','Georgia','Poppins','Roboto','Montserrat'];if(!in_array($theme['font_family']??'Inter',$allowedFonts,true))$theme['font_family']='Inter';
 foreach(['container_width','section_spacing','border_radius'] as $numeric){$theme[$numeric]=(string)max(0,min(2400,(int)($theme[$numeric]??0)));}
@@ -39,7 +76,38 @@ var map={
  nav_text_color:["--nav-text-color"],
  button_background:["--button-background"],
  button_text_color:["--button-text-color"],
- font_family:["--font-family"]
+ font_family:["--font-family"],
+ hero_background:["--hero-background"],
+ hero_text_color:["--hero-text-color"],
+ hero_heading_color:["--hero-heading-color"],
+ hero_overlay_color:["--hero-overlay-color"],
+ default_section_background:["--default-section-background"],
+ light_section_background:["--light-section-background"],
+ dark_section_background:["--dark-section-background"],
+ alt_section_background:["--alt-section-background"],
+ cta_section_background:["--cta-section-background"],
+ section_heading_color:["--section-heading-color"],
+ section_text_color:["--section-text-color"],
+ header_text_color:["--header-text-color"],
+ header_link_hover_color:["--header-link-hover-color"],
+ footer_heading_color:["--footer-heading-color"],
+ footer_text_color:["--footer-text-color"],
+ footer_link_color:["--footer-link-color"],
+ card_heading_color:["--card-heading-color"],
+ card_text_color:["--card-text-color"],
+ card_border_color:["--card-border-color"],
+ button_hover_background:["--button-hover-background"],
+ button_hover_text_color:["--button-hover-text-color"],
+ form_background:["--form-background"],
+ form_text_color:["--form-text-color"],
+ form_border_color:["--form-border-color"],
+ dark_section_text_color:["--dark-section-text-color"],
+ cta_section_text_color:["--cta-section-text-color"],
+ header_button_background:["--header-button-background"],
+ header_button_text_color:["--header-button-text-color"],
+ overlay_menu_background:["--overlay-menu-background"],
+ overlay_menu_text_color:["--overlay-menu-text-color"],
+ overlay_menu_hover_color:["--overlay-menu-hover-color"]
 };
 Object.keys(map).forEach(function(k){var v=t[k];if(v!==undefined&&v!==null&&String(v)!==""){map[k].forEach(function(name){s.setProperty(name,String(v));});}});
 var width=Math.max(760,Math.min(1800,parseInt(t.container_width||1200,10)||1200));
@@ -50,4 +118,7 @@ s.setProperty("--section-spacing",spacing+"px");
 s.setProperty("--border-radius",radius+"px");
 s.setProperty("--line","color-mix(in srgb, "+(t.text_color||"#344f59")+" 18%, transparent)");
 s.setProperty("--shadow","0 18px 48px color-mix(in srgb, "+(t.primary_color||"#0b6f82")+" 14%, transparent)");
+var imageMap={hero_background_image:"--hero-background-image",default_section_background_image:"--default-section-background-image",footer_background_image:"--footer-background-image"};
+Object.keys(imageMap).forEach(function(k){var v=String(t[k]||"").trim();if(v&&/^(https?:\/\/|\/|assets\/)/i.test(v)&&!/[()\\\\]/.test(v)){s.setProperty(imageMap[k],"url(\""+v+"\")");}});
+
 }catch(e){if(window.console&&console.warn)console.warn("Wave theme configuration could not be applied",e);}})();';

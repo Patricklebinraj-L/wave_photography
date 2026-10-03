@@ -104,6 +104,43 @@ return function(PDO $pdo): void {
     ];
     $ins=$pdo->prepare("INSERT IGNORE INTO theme_settings(setting_key,setting_value) VALUES(?,?)");
     foreach($theme as $k=>$v)$ins->execute([$k,$v]);
+    $extendedTheme = [
+      'hero_background' => '#eaf8f5',
+      'hero_text_color' => '#123342',
+      'hero_heading_color' => '#123342',
+      'hero_overlay_color' => '#ffffff',
+      'default_section_background' => '#f5fbfa',
+      'light_section_background' => '#ffffff',
+      'dark_section_background' => '#073b49',
+      'alt_section_background' => '#eaf8f5',
+      'cta_section_background' => '#1c5664',
+      'section_heading_color' => '#123342',
+      'section_text_color' => '#344f59',
+      'header_text_color' => '#ffffff',
+      'header_link_hover_color' => '#20b99a',
+      'footer_heading_color' => '#ffffff',
+      'footer_text_color' => '#d5e6e9',
+      'footer_link_color' => '#ffffff',
+      'card_heading_color' => '#123342',
+      'card_text_color' => '#344f59',
+      'card_border_color' => '#dce9e7',
+      'button_hover_background' => '#159d83',
+      'button_hover_text_color' => '#ffffff',
+      'form_background' => '#ffffff',
+      'form_text_color' => '#123342',
+      'form_border_color' => '#dce9e7',
+      'hero_background_image' => '',
+      'default_section_background_image' => '',
+      'footer_background_image' => '',
+      'dark_section_text_color' => '#ffffff',
+      'cta_section_text_color' => '#ffffff',
+      'header_button_background' => '#20b99a',
+      'header_button_text_color' => '#073b49',
+      'overlay_menu_background' => '#073b49',
+      'overlay_menu_text_color' => '#ffffff',
+      'overlay_menu_hover_color' => '#20b99a'
+    ];
+    foreach($extendedTheme as $k=>$v)$ins->execute([$k,$v]);
 
     $globalDefaults=['website_name'=>'Wave Photography','tagline'=>'Photography for every beautiful moment','seo_title'=>'Wave Photography | Weddings, Babies & Family','meta_description'=>'Wedding, baby, maternity, birthday and family photography in Tamil Nadu.','keywords'=>'photography, wedding photography, baby photography, Chennai','google_maps_url'=>'','analytics_id'=>'','maintenance_mode'=>'0','website_visibility'=>'1','favicon'=>'assets/logo/wave-photography-favicon.png','logo'=>'assets/logo/wave-photography-primary.png'];
     $insSettings=$pdo->prepare("INSERT IGNORE INTO site_settings(setting_key,setting_value) VALUES(?,?)");foreach($globalDefaults as $k=>$v)$insSettings->execute([$k,$v]);
