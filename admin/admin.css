@@ -67,3 +67,11 @@
 @media(max-width:680px){.theme-sticky-actions{align-items:stretch}.theme-sticky-buttons{width:100%;display:grid;grid-template-columns:1fr}.theme-sticky-buttons .btn{width:100%}.theme-group-actions{justify-content:stretch}.theme-group-actions .btn{flex:1}}
 
 .logo-slot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.logo-slot-grid label{display:block;padding:12px;border:1px solid var(--line,#dce9e7);border-radius:12px;background:#f8fbfb}.logo-slot-grid small{display:block;margin-top:5px;color:#667}.theme-group .form-grid label{min-width:0}@media(max-width:650px){.logo-slot-grid{grid-template-columns:1fr}}
+/* Navigation link colour overrides (Navigation page) */
+.nav-color{gap:8px}
+.nav-color input[type=color]{height:46px;padding:6px;cursor:pointer}
+.nav-color .check{margin-top:2px;font-weight:600;color:#5c757e}
+.nav-color .check input{width:auto;accent-color:#16a995}
+#navigation-editor h4{font-size:14px;color:#123b49;margin:4px 0 0;letter-spacing:.2px}
+#navigation-editor .custom-css-field{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+#navigation-editor .manage-row span{line-height:1.6}

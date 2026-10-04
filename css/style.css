@@ -735,3 +735,66 @@ header .w{min-height:86px;height:auto;padding-top:10px;padding-bottom:10px;gap:c
 @media(max-width:1120px){header .w{gap:12px}.header-shortcuts{gap:4px}.header-shortcuts a{padding:8px 7px;font-size:.78rem}.brand-lockup img{max-width:165px}}
 @media(max-width:860px){.header-shortcuts{justify-content:flex-start}.header-shortcuts a{font-size:.76rem}.hd>.btn{padding:10px 16px}}
 @media(max-width:680px){header .w{min-height:70px}.header-shortcuts{display:none}.brand-lockup img{max-width:150px;max-height:58px}.hd>.btn{padding:9px 13px;font-size:.82rem}#bg{padding:8px 15px;font-size:.88rem}}
+
+/* Admin-managed logo surface: background (incl. transparent), border and box shadow.
+   data.php resolves every value below into a CSS custom property. */
+header .brand-lockup{
+  background:var(--logo-background,#fff);
+  border:var(--logo-border,1px solid rgba(255,255,255,.72));
+  box-shadow:var(--logo-box-shadow,0 5px 18px rgba(0,0,0,.12));
+}
+footer .logo.lg{
+  background:var(--logo-background,#fff);
+  border:var(--logo-border,1px solid rgba(255,255,255,.7));
+  box-shadow:var(--logo-box-shadow,0 16px 48px rgba(0,0,0,.10));
+}
+#ld .logo{
+  background:var(--logo-background,#fff);
+  border:var(--logo-border,none);
+  box-shadow:var(--logo-box-shadow,0 16px 48px rgba(0,0,0,.10));
+}
+/* Force the admin-selected logo tile onto every logo wrapper, including the
+   transparent background option and the configurable border / shadow. */
+header .brand-lockup, .brand-lockup, footer .logo, footer .brand-lockup, #ld .logo{
+  background-color:var(--logo-background,#fff)!important;
+  background-image:none!important;
+  padding:var(--logo-padding,10px)!important;
+  border-radius:var(--logo-radius,16px)!important;
+  border:var(--logo-border,1px solid rgba(255,255,255,.72))!important;
+  box-shadow:var(--logo-box-shadow,0 5px 18px rgba(0,0,0,.12))!important;
+  box-sizing:border-box!important;
+}
+
+/* Admin-managed header navigation bar: visibility, layout, typography and states. */
+header .header-shortcuts{
+  justify-content:var(--navbar-alignment,center)!important;
+  gap:var(--navbar-gap,18px)!important;
+  background:var(--navbar-background,transparent)!important;
+  border:var(--navbar-border,none)!important;
+  border-radius:var(--navbar-radius,999px)!important;
+  box-shadow:var(--navbar-box-shadow,none)!important;
+}
+header .header-shortcuts.wave-navbar-hidden{display:none!important}
+.header-shortcuts a{
+  padding:var(--navbar-link-padding,9px 14px)!important;
+  border-radius:var(--navbar-radius,999px)!important;
+  font-size:var(--navbar-font-size,.95rem)!important;
+  font-weight:var(--navbar-font-weight,700)!important;
+  letter-spacing:var(--navbar-letter-spacing,0)!important;
+  text-transform:var(--navbar-text-transform,none)!important;
+  text-decoration:none!important;
+  color:var(--navbar-link-text,var(--header-shortcut-text,#173b49))!important;
+}
+.header-shortcuts a:hover{
+  background:var(--navbar-hover-bg,var(--header-shortcut-hover-bg,#20b99a))!important;
+  color:var(--navbar-hover-text,var(--header-shortcut-hover-text,#fff))!important;
+  text-decoration:var(--navbar-hover-decoration,none);
+}
+.header-shortcuts a.on{
+  background:var(--navbar-active-bg,var(--navbar-hover-bg,#1c5664))!important;
+  color:var(--navbar-active-text,var(--navbar-hover-text,#fff))!important;
+  border-radius:var(--navbar-active-radius,var(--navbar-radius,999px))!important;
+  box-shadow:var(--navbar-active-shadow,none)!important;
+}
+@media(max-width:860px){.header-shortcuts{justify-content:var(--navbar-alignment,center)!important}}
+
