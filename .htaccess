@@ -1,5 +1,5 @@
 Options -Indexes
-<FilesMatch "^(config\.php|README_DEPLOY\.md)$">
+<FilesMatch "^(config\.php|README_DEPLOY\.md|\.user\.ini)$">
   Require all denied
 </FilesMatch>
 <IfModule mod_headers.c>

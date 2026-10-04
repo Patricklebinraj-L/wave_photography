@@ -82,7 +82,9 @@ Migration `004_admin_portal.php` is automatically picked up by the existing vers
 ### Uploads
 - Images are stored under `uploads/media/` with random server-generated filenames.
 - Only JPEG, PNG and WebP MIME types are accepted.
-- Maximum application-level size is 8 MB per image.
+- Maximum application-level size is 25 MB per image.
+- Gallery batch uploads support multiple images, up to 50 files per batch and 200 MB combined. The browser checks selected file sizes before submission; PHP validates every file and the combined batch again on the server.
+- The included `.user.ini` requests `upload_max_filesize=25M`, `post_max_size=210M` (includes multipart form overhead), and `max_file_uploads=50`, with longer upload timeouts. Some shared hosts impose hard limits that override `.user.ini`; check the effective PHP values shown above the Gallery upload control after deployment. If the host reports smaller values or rejects large requests before PHP receives them, ask the host to raise the limits or use a hosting plan that permits 210 MB POST requests. PHP may cache `.user.ini` values for several minutes after deployment.
 - Relative file paths are stored in MySQL.
 - The uploads directory denies PHP/PHTML/PHAR execution. When PHP GD/WebP support is available, the portal also generates smaller WebP thumbnails; otherwise it safely uses the original image.
 - Ensure `uploads/` is writable by PHP on the hosting account.
