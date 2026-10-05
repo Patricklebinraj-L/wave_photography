@@ -68,7 +68,7 @@ function make_thumbnail($relative){
   $loaders=['image/jpeg'=>'imagecreatefromjpeg','image/png'=>'imagecreatefrompng','image/webp'=>'imagecreatefromwebp'];
   $loader=$loaders[$info['mime']]??null;if(!$loader||!function_exists($loader))return $relative;
   $w=(int)$info[0];$h=(int)$info[1];if($w<1||$h<1)return $relative;
-  $max=720;$scale=min(1,$max/max($w,$h));$nw=max(1,(int)round($w*$scale));$nh=max(1,(int)round($h*$scale));
+  $max=1400;$scale=min(1,$max/max($w,$h));$nw=max(1,(int)round($w*$scale));$nh=max(1,(int)round($h*$scale));
   // Decoding a modern camera file needs roughly 4 bytes per pixel for the bitmap plus the
   // destination buffer. Going over memory_limit is a fatal error that kills the whole
   // request, so skip the thumbnail instead of taking the batch down with it.
@@ -81,7 +81,7 @@ function make_thumbnail($relative){
   imagecopyresampled($dst,$src,0,0,0,0,$nw,$nh,$w,$h);
   $dir=dirname($source).'/thumbs';if(!is_dir($dir))@mkdir($dir,0755,true);
   $name=pathinfo($source,PATHINFO_FILENAME).'-thumb.webp';$target=$dir.'/'.$name;
-  $ok=function_exists('imagewebp')?imagewebp($dst,$target,82):false;
+  $ok=function_exists('imagewebp')?imagewebp($dst,$target,85):false;
   imagedestroy($src);imagedestroy($dst);unset($src,$dst);gc_collect_cycles();
   return $ok?'uploads/media/thumbs/'.$name:$relative;
  }catch(Throwable $e){error_log('[Wave thumbnail] '.$e->getMessage());return $relative;}

@@ -53,7 +53,7 @@ else if(now>lastScroll+8){$('header').addClass('header-hidden');}
 lastScroll=now;scrollTick=false;
 });scrollTick=true;}
 });
-var ph=(p,i)=>'<figure class="ph" data-i="'+i+'" style="aspect-ratio:'+esc(p.ratio||'4/5')+'"><img loading="lazy" src="'+esc(p.thumb||p.image)+'" onerror="this.onerror=null;this.src=\''+esc(p.image)+'\'" alt="'+esc(p.alt_text||p.title+' – '+p.category+' photography')+'"></figure>';
+var ph=(p,i)=>'<figure class="ph" data-i="'+i+'"><img loading="lazy" src="'+esc(p.thumb||p.image)+'" onerror="this.onerror=null;this.src=\''+esc(p.image)+'\'" alt="'+esc(p.alt_text||p.title+' – '+p.category+' photography')+'"></figure>';
 var list=P;function lb(i){var p=list[i];$('#lb').addClass('on').data('i',i).find('img').attr({src:p.remote||p.image,alt:p.title})}
 $(document).on('click','.ph',function(){lb($(this).data('i'))});
 function step(d){lb(($('#lb').data('i')+d+list.length)%list.length)}
@@ -98,7 +98,7 @@ $(this).replaceWith('<a class="load-more" href="service.php?s='+s.s+'">View comp
 });
 list=P.filter(p=>p.featured);$('#feat').html(list.length?list.map(ph).join(''):'<p class="empty-state">Our featured photographs are being updated. Please visit the full portfolio.</p>');
 $('#why').html(WHY.map(w=>'<div><h3>'+w+'</h3></div>').join(''));
-$('#ig').html(P.filter(p=>!p.placeholder).slice(0,8).map(p=>'<a href="'+IG+'" target="_blank" rel="noopener"><img loading="lazy" src="'+(p.thumb||p.image)+'" alt="Wave Photography sample photograph"></a>').join(''));
+$('#ig').html(P.filter(p=>!p.placeholder).slice(0,8).map(p=>'<a href="'+IG+'" target="_blank" rel="noopener"><img loading="lazy" src="'+(p.thumb||p.image)+'" onerror="this.onerror=null;this.hidden=true" alt="Wave Photography sample photograph"></a>').join(''));
 if($('#fl').length){var cats=['All'].concat(Array.from(new Set(P.map(function(p){return p.category;}).filter(Boolean))).sort());cats.forEach(c=>$('#fl').append($('<button>').text(c).toggleClass('on',c=='All').on('click',function(){$('#fl button').removeClass('on');$(this).addClass('on');fill(c)})));fill('All')}
 var t=0,testimonialTimer=null;
 function testimonialInitials(name){
@@ -147,7 +147,7 @@ if($('#tt').length){
  }
 }
 if(pg=='service'){var s=SERVICES.find(x=>x.s==new URLSearchParams(location.search).get('s'))||SERVICES[0];document.title=s.n+' | Wave Photography';
-$('#st').text(s.n);$('#sd').text(s.d);$('#si').attr({src:s.i,alt:s.n});$('#sl').html(s.inc.map(i=>'<li>'+esc(i)+'</li>').join(''));$('#sq').attr('href','contact.php?s='+encodeURIComponent(s.n));
+$('#st').text(s.n);$('#sd').text(s.d);$('#si').attr({src:s.i,alt:s.n}).on('error',function(){this.onerror=null;this.src='assets/gallery/sample-14.svg'});$('#sl').html(s.inc.map(i=>'<li>'+esc(i)+'</li>').join(''));$('#sq').attr('href','contact.php?s='+encodeURIComponent(s.n));
 list=P.filter(p=>p.category==s.c);$('#ms').html(list.map(ph).join(''))}
 if(pg=='contact'){var q=new URLSearchParams(location.search).get('s');SERVICES.forEach(s=>$('#pk').append($('<option>').text(s.n)));if(q)$('#pk').val(q);
 $('#f').on('submit',function(e){e.preventDefault();var waWindow=window.open('about:blank','_blank');var ok=true,v={};$('#f [name]').each(function(){var $e=$(this),x=$.trim($e.val()),bad=$e.prop('required')&&!x;
