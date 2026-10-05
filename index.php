@@ -17,7 +17,6 @@
       <div class="hero-photo-main"><img src="assets/pre-wedding/dusk-tower.webp" alt="A beautifully captured couple at dusk" fetchpriority="high"></div>
       <div class="hero-photo-small hero-photo-one"><img src="assets/pre-wedding/twirl-steps-sm.webp" alt="Couple sharing a joyful moment"></div>
       <div class="hero-photo-small hero-photo-two"><img src="assets/pre-wedding/yellow-bench-sm.webp" alt="Couple portrait beside a colourful backdrop"></div>
-      <div class="hero-photo-note"><span>01 / 03</span><b>Moments that stay forever</b></div>
       <div class="hero-orbit"></div>
     </div>
   </div>
