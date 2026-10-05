@@ -11,3 +11,32 @@ Options -Indexes
   RewriteEngine On
   RewriteRule ^admin/?$ admin/index.php [L]
 </IfModule>
+
+# Raise the upload limits used by the admin uploader. Guarded by a module test because
+# php_value is rejected with a 500 under CGI/FPM; those hosts are served by .user.ini instead.
+# PHP 8 registers the module as mod_php, PHP 5/7 as mod_php5/mod_php7, so all three are
+# covered - guarding only the PHP 8 name silently did nothing on a PHP 7 host.
+<IfModule mod_php.c>
+  php_value upload_max_filesize 64M
+  php_value post_max_size 320M
+  php_value max_file_uploads 100
+  php_value max_execution_time 300
+  php_value max_input_time 300
+  php_value memory_limit 512M
+</IfModule>
+<IfModule mod_php7.c>
+  php_value upload_max_filesize 64M
+  php_value post_max_size 320M
+  php_value max_file_uploads 100
+  php_value max_execution_time 300
+  php_value max_input_time 300
+  php_value memory_limit 512M
+</IfModule>
+<IfModule mod_php5.c>
+  php_value upload_max_filesize 64M
+  php_value post_max_size 320M
+  php_value max_file_uploads 100
+  php_value max_execution_time 300
+  php_value max_input_time 300
+  php_value memory_limit 512M
+</IfModule>

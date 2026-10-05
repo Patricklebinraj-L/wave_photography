@@ -1,0 +1,10 @@
+# Staging area for resumable uploads. Chunks are named with a 128-bit random token, but
+# deny access outright so a guessed or leaked URL can never read a partially uploaded file or
+# execute anything dropped here.
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>

@@ -75,3 +75,12 @@
 #navigation-editor h4{font-size:14px;color:#123b49;margin:4px 0 0;letter-spacing:.2px}
 #navigation-editor .custom-css-field{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
 #navigation-editor .manage-row span{line-height:1.6}
+.manage-group{display:flex;align-items:center;gap:8px;margin:18px 0 8px;font-size:12px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#5c7280}
+.manage-group:first-of-type{margin-top:4px}
+.manage-group .pill{display:inline-block;min-width:20px;padding:1px 7px;border-radius:999px;background:#e6eff2;color:#123b49;font-size:11px;text-align:center;letter-spacing:0}
+.manage-row.is-hidden{opacity:.72;background:#fbfcfc;border-left:3px solid #d7e2e6;padding-left:12px}
+.manage-row.is-hidden .thumb{filter:grayscale(1);opacity:.6}
+.manage-row form{display:inline-flex}
+#bulk-upload-status.is-error{color:#a33e32;font-weight:700}
+.field-note{display:block;margin-top:5px;font-size:12.5px;line-height:1.45;color:#5c7280}
+.field-note.is-error{color:#a33e32;font-weight:700}
